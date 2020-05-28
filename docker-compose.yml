@@ -1,0 +1,32 @@
+version: "3.5"
+services:
+  grafana:
+    container_name: grafana
+    image: grafana/grafana:latest
+    restart: always
+    ports:
+      - 3000:3000
+    volumes:
+      - grafana-volume:/var/lib/grafana
+    networks:
+      - dashboard-network
+  influxdb:
+    container_name: influxdb
+    image: influxdb:alpine
+    restart: always
+    ports:
+      - 8086:8086
+    volumes:
+      - influxdb-volume:/var/lib/influxdb
+    networks:
+      - dashboard-network
+
+volumes:
+  grafana-volume:
+    name: grafana-volume
+  influxdb-volume:
+    name: influxdb-volume
+
+networks:
+  dashboard-network:
+    name: dashboard-network
